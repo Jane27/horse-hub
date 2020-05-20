@@ -33,6 +33,9 @@ const HorseList: React.FC<any> = (props) => {
   return (
     <Container>
       <h3>Horse List Page</h3>
+      <Link to={`/horse`}>
+          <button>Add</button>
+        </Link>
       <Content>
         {HorseStore.horses?.map((horse:IHorse) => (
           <Entry key={horse.id}>

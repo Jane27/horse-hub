@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { HorseList } from "./pages";
-import './App.css';
+import { HorseList, HorseDetail } from "./pages";
+import "./App.css";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
               <HorseList />
             </Route>
             <Route path="/horse">
+              <HorseDetail />
             </Route>
           </Switch>
         </div>
