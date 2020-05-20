@@ -6,14 +6,15 @@ type TPagination = {
   currPage: number;
   setPageContent: (index: number) => void;
 };
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
 const Button = styled.button<{ active?: boolean }>`
-  color: ${props => props.active ? '#fff' : '#000'};
-  background-color: ${props => props.active ? 'blue' : '#fff'}
+  color: ${(props) => (props.active ? "#fff" : "#000")};
+  background-color: ${(props) => (props.active ? "blue" : "#fff")};
 `;
 
 const Pagination: React.FC<TPagination> = ({
@@ -27,30 +28,30 @@ const Pagination: React.FC<TPagination> = ({
 
     for (let i = 0; i < total; i++) {
       buttonGroup.push(
-        <Button active={i === currPage} onClick={() => setPageContent(i)}>{i + 1}</Button>
+        <Button active={i === currPage} onClick={() => setPageContent(i)}>
+          {i + 1}
+        </Button>
       );
     }
     return buttonGroup;
   };
 
   return (
-    <>
-      <Container>
-        <button
-          disabled={currPage === 0}
-          onClick={() => setPageContent(currPage - 1)}
-        >
-          Previous
-        </button>
-        {renderSerial(totalPages)}
-        <button
-          disabled={currPage === totalPages - 1}
-          onClick={() => setPageContent(currPage + 1)}
-        >
-          Next
-        </button>
-      </Container>
-    </>
+    <Container>
+      <button
+        disabled={currPage === 0}
+        onClick={() => setPageContent(currPage - 1)}
+      >
+        Previous
+      </button>
+      {renderSerial(totalPages)}
+      <button
+        disabled={currPage === totalPages - 1}
+        onClick={() => setPageContent(currPage + 1)}
+      >
+        Next
+      </button>
+    </Container>
   );
 };
 

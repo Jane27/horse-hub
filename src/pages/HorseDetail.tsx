@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import { store as HorseStore } from "../store/index"
+import { store as HorseStore } from "../store/index";
 import { IHorse } from "../types";
 import { TextField } from "../components";
 import { useQuery } from "../hooks/useQuery";
-import { observer } from 'mobx-react';
+import { observer } from "mobx-react";
 
 const HorseDetail: React.FC<any> = () => {
   const query = useQuery();
@@ -19,9 +19,9 @@ const HorseDetail: React.FC<any> = () => {
       if (!horse && id) {
         HorseStore.loadHorse(id);
       }
-    }
+    };
     load();
-  }, [])
+  }, []);
 
   return (
     <div>
