@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import styled from "styled-components";
-import { IHorse } from '../types';
+import { IHorse } from "../types";
+import { Pagination } from "../components";
 
-import { store as HorseStore } from "../store/index"
+
+import { store as HorseStore } from "../store/index";
+
+const PageSize = 10;
 
 
 const Container = styled.div`
@@ -23,31 +27,40 @@ const Entry = styled.div`
   text-align: left;
 `;
 
+const Footer = styled.div`
+  margin-top: 20px;
+`;
 
 const HorseList: React.FC<any> = (props) => {
   const [selectMode, setSelectMode] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
 
 
   useEffect(() => {
     HorseStore.load();
   }, []);
 
+  const pageContent = HorseStore.horses.slice(
+    page * PageSize,
+    page * PageSize + PageSize
+  );
+
   return (
     <Container>
       <h3>Horse List Page</h3>
       <button
-          onClick={() => {
-            if (selectMode) HorseStore.clearAllSelection();
-            setSelectMode(!selectMode);
-          }}
-        >
-          {selectMode ? `Hide` : `Compare`}
-        </button>
+        onClick={() => {
+          if (selectMode) HorseStore.clearAllSelection();
+          setSelectMode(!selectMode);
+        }}
+      >
+        {selectMode ? `Hide` : `Compare`}
+      </button>
       <Link to={`/horse`}>
-          <button>Add</button>
-        </Link>
+        <button>Add</button>
+      </Link>
       <Content>
-        {HorseStore.horses?.map((horse:IHorse) => (
+        {pageContent?.map((horse: IHorse) => (
           <Entry key={horse.id}>
             {selectMode && (
               <input
@@ -63,6 +76,13 @@ const HorseList: React.FC<any> = (props) => {
           </Entry>
         ))}
       </Content>
+      <Footer>
+        <Pagination
+          total={HorseStore.horses?.length}
+          currPage={page}
+          setPageContent={(index) => setPage(index)}
+        />
+      </Footer>
     </Container>
   );
 };
