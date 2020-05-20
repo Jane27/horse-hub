@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import styled from "styled-components";
@@ -25,6 +25,8 @@ const Entry = styled.div`
 
 
 const HorseList: React.FC<any> = (props) => {
+  const [selectMode, setSelectMode] = useState<boolean>(false);
+
 
   useEffect(() => {
     HorseStore.load();
@@ -33,12 +35,30 @@ const HorseList: React.FC<any> = (props) => {
   return (
     <Container>
       <h3>Horse List Page</h3>
+      <button
+          onClick={() => {
+            if (selectMode) HorseStore.clearAllSelection();
+            setSelectMode(!selectMode);
+          }}
+        >
+          {selectMode ? `Hide` : `Compare`}
+        </button>
       <Link to={`/horse`}>
           <button>Add</button>
         </Link>
       <Content>
         {HorseStore.horses?.map((horse:IHorse) => (
           <Entry key={horse.id}>
+            {selectMode && (
+              <input
+                type="checkbox"
+                checked={horse.isSelected}
+                onChange={(e) => {
+                  horse.id &&
+                    HorseStore.toggleSelect(horse.id, e.target.checked);
+                }}
+              ></input>
+            )}
             <Link to={`/horse?id=${horse.id}`}>{horse.name}</Link>
           </Entry>
         ))}

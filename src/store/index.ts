@@ -69,6 +69,30 @@ class HorseStore {
       this.state.loading = false;
     });
   }
+
+    /**
+   * Clear all selection
+   */
+  @action async clearAllSelection() {
+    this.horses = this.horses.map((h) => {
+      h.isSelected = false;
+      return h;
+    });
+  }
+
+   /**
+   * Toggle selected horse
+   * @param horseId Horse Id
+   * @param isSelected Horse is selection status
+   */
+  @action async toggleSelect(horseId: string, isSelected: boolean) {
+    this.horses = this.horses.map((h) => {
+      if (h.id === horseId) {
+        h.isSelected = isSelected;
+      }
+      return h;
+    });
+  }
 }
 
 export const store = new HorseStore();
