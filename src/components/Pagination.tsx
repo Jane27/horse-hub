@@ -28,7 +28,7 @@ const Pagination: React.FC<TPagination> = ({
 
     for (let i = 0; i < total; i++) {
       buttonGroup.push(
-        <Button active={i === currPage} onClick={() => setPageContent(i)}>
+        <Button key={i} active={i === currPage} onClick={() => setPageContent(i)}>
           {i + 1}
         </Button>
       );
