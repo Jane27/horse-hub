@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import { IHorse } from "../types";
-import { Pagination } from "../components";
-
+import { Pagination, ComparisonTable } from "../components";
 
 import { store as HorseStore } from "../store/index";
 
 const PageSize = 10;
-
 
 const Container = styled.div`
   max-width: 500px;
@@ -27,14 +25,40 @@ const Entry = styled.div`
   text-align: left;
 `;
 
+const ToolBar = styled.div`
+  margin: 20px;
+`;
+
 const Footer = styled.div`
   margin-top: 20px;
 `;
 
+const CompareBox = styled.div`
+  width: 100%;
+`;
+
+const compareFields = [
+  {
+    label: "Name",
+    path: "name",
+  },
+  {
+    label: "Favourite Food",
+    path: "profile.favouriteFood",
+  },
+  {
+    label: "Height",
+    path: "profile.physical.height",
+  },
+  {
+    label: "Weight",
+    path: "profile.physical.weight",
+  },
+];
+
 const HorseList: React.FC<any> = (props) => {
   const [selectMode, setSelectMode] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
-
 
   useEffect(() => {
     HorseStore.load();
@@ -45,20 +69,25 @@ const HorseList: React.FC<any> = (props) => {
     page * PageSize + PageSize
   );
 
+  const showCompareTable = HorseStore.selectedHorses?.length > 1;
+
   return (
     <Container>
       <h3>Horse List Page</h3>
-      <button
-        onClick={() => {
-          if (selectMode) HorseStore.clearAllSelection();
-          setSelectMode(!selectMode);
-        }}
-      >
-        {selectMode ? `Hide` : `Compare`}
-      </button>
-      <Link to={`/horse`}>
-        <button>Add</button>
-      </Link>
+      <ToolBar>
+        <button
+          onClick={() => {
+            if (selectMode) HorseStore.clearAllSelection();
+            setSelectMode(!selectMode);
+          }}
+        >
+          {selectMode ? `Hide` : `Compare`}
+        </button>
+        <Link to={`/horse`}>
+          <button>Add</button>
+        </Link>
+      </ToolBar>
+
       <Content>
         {pageContent?.map((horse: IHorse) => (
           <Entry key={horse.id}>
@@ -83,6 +112,15 @@ const HorseList: React.FC<any> = (props) => {
           setPageContent={(index) => setPage(index)}
         />
       </Footer>
+      {showCompareTable && (
+        <CompareBox>
+          <h3>Compare Result</h3>
+          <ComparisonTable
+            fields={compareFields}
+            items={HorseStore.selectedHorses}
+          />
+        </CompareBox>
+      )}
     </Container>
   );
 };

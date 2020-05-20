@@ -1,5 +1,10 @@
-import { observable, runInAction, action } from "mobx";
-import { getHorses, addHorse, updateHorse,getHorseById } from "../services/api";
+import { observable, runInAction, action, computed } from "mobx";
+import {
+  getHorses,
+  addHorse,
+  updateHorse,
+  getHorseById,
+} from "../services/api";
 import { IHorse } from "../types";
 
 class HorseStore {
@@ -9,6 +14,9 @@ class HorseStore {
     error: false,
   };
 
+  @computed get selectedHorses() {
+    return this.horses?.filter((h) => h.isSelected);
+  }
 
   /**
    * Load horses list from API
@@ -29,7 +37,31 @@ class HorseStore {
     });
   }
 
-/**
+  /**
+   * Load horse by horse ID
+   */
+  @action async loadHorse(id: string) {
+    let data: IHorse;
+    try {
+      this.state.loading = true;
+      data = await getHorseById(id);
+    } catch (e) {
+      this.state.error = true;
+      return;
+    }
+
+    runInAction(() => {
+      const idx = this.horses.findIndex((h) => h.id === id);
+      if (idx !== -1) {
+        this.horses[idx] = data;
+      } else {
+        this.horses.push(data);
+      }
+      this.state.loading = false;
+    });
+  }
+
+  /**
    * Add new horse
    * @param horse Horse details
    */
@@ -52,7 +84,7 @@ class HorseStore {
 
   /**
    * Update horse
-   * @param horse 
+   * @param horse
    */
   @action async updateHorse(horse: IHorse) {
     let data: IHorse;
@@ -70,7 +102,7 @@ class HorseStore {
     });
   }
 
-    /**
+  /**
    * Clear all selection
    */
   @action async clearAllSelection() {
@@ -80,7 +112,7 @@ class HorseStore {
     });
   }
 
-   /**
+  /**
    * Toggle selected horse
    * @param horseId Horse Id
    * @param isSelected Horse is selection status

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,11 +7,21 @@ import { store as HorseStore } from "../store/index"
 import { IHorse } from "../types";
 import { TextField } from "../components";
 import { useQuery } from "../hooks/useQuery";
+import { observer } from 'mobx-react';
 
 const HorseDetail: React.FC<any> = () => {
   const query = useQuery();
   const id = query.get("id");
-  const horse = HorseStore.horses.find((h) => h.id === id) || {};
+  const horse = HorseStore.horses.find((h) => h.id === id);
+
+  useEffect(() => {
+    const load = async () => {
+      if (!horse && id) {
+        HorseStore.loadHorse(id);
+      }
+    }
+    load();
+  }, [])
 
   return (
     <div>
@@ -19,7 +29,7 @@ const HorseDetail: React.FC<any> = () => {
       <div>
         <div>
           <Formik
-            initialValues={horse}
+            initialValues={horse || {}}
             validationSchema={Yup.object({
               name: Yup.string().required("Required"),
             })}
@@ -64,4 +74,4 @@ const HorseDetail: React.FC<any> = () => {
   );
 };
 
-export default HorseDetail;
+export default observer(HorseDetail);
