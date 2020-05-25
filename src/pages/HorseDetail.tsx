@@ -29,6 +29,7 @@ const HorseDetail: React.FC<any> = () => {
       <div>
         <div>
           <Formik
+            enableReinitialize
             initialValues={horse || {}}
             validationSchema={Yup.object({
               name: Yup.string().required("Required"),

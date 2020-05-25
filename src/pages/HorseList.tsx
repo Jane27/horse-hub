@@ -108,8 +108,9 @@ const HorseList: React.FC<any> = (props) => {
       <Footer>
         <Pagination
           total={HorseStore.horses?.length}
-          currPage={page}
-          setPageContent={(index) => setPage(index)}
+          initialPage={page}
+          pageSize={PageSize}
+          onPageChange={(index) => setPage(index)}
         />
       </Footer>
       {showCompareTable && (

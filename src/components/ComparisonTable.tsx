@@ -17,10 +17,13 @@ const Cell = styled.div`
   border: 1px solid black;
   width: 80%;
 `;
-const Text = styled.p`
+export const Text = styled.p`
   margin: auto;
   text-align: center;
 `;
+
+Text.displayName = "value";
+
 
 export type TComparison = {
   fields: { label: string; path: string }[];
@@ -28,16 +31,18 @@ export type TComparison = {
 };
 
 const ComparisonTable: React.FC<TComparison> = ({ fields, items }) => {
+
+  console.log(fields)
   return (
     <div>
-      {fields.map(({ label, path }) => {
-        const values = items.map((item) => (
-          <Cell>
+      {fields.map(({ label, path }, idx) => {
+        const values = items.map((item, idx) => (
+          <Cell key={idx}>
             <Text>{get(item, path, "")}</Text>
           </Cell>
         ));
         return (
-          <Row>
+          <Row key={idx}>
             <Cell>
               <Text>{label}</Text>
             </Cell>
