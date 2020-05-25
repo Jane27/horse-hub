@@ -1,5 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`WithMenu Should 16 value in the table 1`] = `
+<div>
+  <styled.div
+    key="0"
+  >
+    <styled.div>
+      <value>
+        Name
+      </value>
+    </styled.div>
+    <styled.div
+      key="0"
+    >
+      <value>
+        Red boy
+      </value>
+    </styled.div>
+    <styled.div
+      key="1"
+    >
+      <value>
+        Purple girl
+      </value>
+    </styled.div>
+    <styled.div
+      key="2"
+    >
+      <value>
+        Green girl
+      </value>
+    </styled.div>
+  </styled.div>
+  <styled.div
+    key="1"
+  >
+    <styled.div>
+      <value>
+        Favourite Food
+      </value>
+    </styled.div>
+    <styled.div
+      key="0"
+    >
+      <value>
+        apple
+      </value>
+    </styled.div>
+    <styled.div
+      key="1"
+    >
+      <value>
+        orange
+      </value>
+    </styled.div>
+    <styled.div
+      key="2"
+    >
+      <value>
+        orange
+      </value>
+    </styled.div>
+  </styled.div>
+  <styled.div
+    key="2"
+  >
+    <styled.div>
+      <value>
+        Height
+      </value>
+    </styled.div>
+    <styled.div
+      key="0"
+    >
+      <value>
+        300
+      </value>
+    </styled.div>
+    <styled.div
+      key="1"
+    >
+      <value>
+        70
+      </value>
+    </styled.div>
+    <styled.div
+      key="2"
+    >
+      <value>
+        70
+      </value>
+    </styled.div>
+  </styled.div>
+  <styled.div
+    key="3"
+  >
+    <styled.div>
+      <value>
+        Weight
+      </value>
+    </styled.div>
+    <styled.div
+      key="0"
+    >
+      <value>
+        60
+      </value>
+    </styled.div>
+    <styled.div
+      key="1"
+    >
+      <value>
+        250
+      </value>
+    </styled.div>
+    <styled.div
+      key="2"
+    >
+      <value>
+        250
+      </value>
+    </styled.div>
+  </styled.div>
+</div>
+`;
+
 exports[`WithMenu Should have the icon title and dropdown 1`] = `
 <div>
   <styled.div
