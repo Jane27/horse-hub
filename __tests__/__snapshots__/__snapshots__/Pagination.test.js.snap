@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pagination Should have previous , next button, the first number button is active 1`] = `
+<styled.div>
+  <button
+    disabled={true}
+    onClick={[Function]}
+  >
+    Previous
+  </button>
+  <NumberButton
+    active={true}
+    key="0"
+    onClick={[Function]}
+  >
+    1
+  </NumberButton>
+  <NumberButton
+    active={false}
+    key="1"
+    onClick={[Function]}
+  >
+    2
+  </NumberButton>
+  <NumberButton
+    active={false}
+    key="2"
+    onClick={[Function]}
+  >
+    3
+  </NumberButton>
+  <NumberButton
+    active={false}
+    key="3"
+    onClick={[Function]}
+  >
+    4
+  </NumberButton>
+  <NumberButton
+    active={false}
+    key="4"
+    onClick={[Function]}
+  >
+    5
+  </NumberButton>
+  <button
+    disabled={false}
+    onClick={[Function]}
+  >
+    Next
+  </button>
+</styled.div>
+`;
